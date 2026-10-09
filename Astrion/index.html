@@ -1,0 +1,3536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ASTRION | Space & Science Explorer</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =========================================================
+   ASTRION
+   SPACE & SCIENCE EXPLORER
+   ========================================================= */
+
+      :root {
+        --bg: #050816;
+        --bg2: #0b1026;
+        --card: rgba(17, 24, 49, 0.82);
+        --card-solid: #111831;
+        --card2: rgba(25, 34, 67, 0.9);
+
+        --text: #f5f7ff;
+        --muted: #aab4d0;
+
+        --accent: #7c5cff;
+        --accent2: #00d9ff;
+        --accent3: #ff4ecd;
+
+        --success: #36e39b;
+        --warning: #ffc857;
+        --danger: #ff5c7a;
+
+        --border: rgba(255, 255, 255, 0.1);
+
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      body.light {
+        --bg: #eef3ff;
+        --bg2: #dce6ff;
+
+        --card: rgba(255, 255, 255, 0.88);
+        --card-solid: #ffffff;
+        --card2: #f3f6ff;
+
+        --text: #10152b;
+        --muted: #59627a;
+
+        --border: rgba(20, 30, 70, 0.12);
+
+        --shadow: 0 15px 45px rgba(35, 50, 100, 0.15);
+      }
+
+      /* =========================================================
+   GLOBAL
+   ========================================================= */
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+
+        background:
+          radial-gradient(
+            circle at 15% 10%,
+            rgba(124, 92, 255, 0.16),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(0, 217, 255, 0.1),
+            transparent 28%
+          ),
+          linear-gradient(135deg, var(--bg), var(--bg2));
+
+        color: var(--text);
+
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        min-height: 100vh;
+
+        overflow-x: hidden;
+      }
+
+      /* STAR BACKGROUND */
+
+      body::before {
+        content: "";
+
+        position: fixed;
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: -2;
+
+        background-image:
+          radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.75) 1px,
+            transparent 1px
+          ),
+          radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.45) 1px,
+            transparent 1px
+          );
+
+        background-size:
+          90px 90px,
+          150px 150px;
+
+        background-position:
+          10px 20px,
+          70px 90px;
+
+        opacity: 0.25;
+      }
+
+      section {
+        padding: 90px 0;
+      }
+
+      .container {
+        max-width: 1200px;
+      }
+
+      .glass {
+        background: var(--card);
+
+        backdrop-filter: blur(18px);
+
+        border: 1px solid var(--border);
+
+        box-shadow: var(--shadow);
+
+        border-radius: 24px;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+
+        font-weight: 900;
+
+        margin-bottom: 12px;
+      }
+
+      .section-subtitle {
+        color: var(--muted);
+
+        max-width: 700px;
+
+        margin: 0 auto;
+      }
+
+      .text-secondary {
+        color: var(--muted) !important;
+      }
+
+      /* =========================================================
+   NAVBAR
+   ========================================================= */
+
+      .navbar {
+        background: rgba(5, 8, 22, 0.72) !important;
+
+        backdrop-filter: blur(18px);
+
+        border-bottom: 1px solid var(--border);
+      }
+
+      body.light .navbar {
+        background: rgba(255, 255, 255, 0.78) !important;
+      }
+
+      .navbar-brand {
+        font-weight: 900;
+
+        letter-spacing: 1px;
+
+        color: var(--text) !important;
+      }
+
+      .navbar-brand span {
+        color: var(--accent2);
+      }
+
+      .nav-link {
+        color: var(--muted) !important;
+
+        font-weight: 600;
+      }
+
+      .nav-link:hover {
+        color: var(--text) !important;
+      }
+
+      /* =========================================================
+   BUTTONS
+   ========================================================= */
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent3));
+
+        border: none;
+
+        font-weight: 700;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-outline-light {
+        border-color: var(--border);
+
+        color: var(--text);
+      }
+
+      .btn-outline-light:hover {
+        color: var(--text);
+
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* =========================================================
+   HERO
+   ========================================================= */
+
+      .hero {
+        min-height: 92vh;
+
+        display: flex;
+
+        align-items: center;
+      }
+
+      .hero-content {
+        text-align: center;
+
+        max-width: 900px;
+
+        margin: auto;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 9px 16px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 50px;
+
+        background: var(--card);
+
+        color: var(--accent2);
+
+        font-weight: 700;
+
+        margin-bottom: 25px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 9vw, 7rem);
+
+        line-height: 0.95;
+
+        font-weight: 1000;
+
+        letter-spacing: -5px;
+
+        margin: 0;
+      }
+
+      .hero h1 span {
+        background: linear-gradient(
+          90deg,
+          var(--accent2),
+          var(--accent),
+          var(--accent3)
+        );
+
+        -webkit-background-clip: text;
+
+        color: transparent;
+      }
+
+      .hero p {
+        color: var(--muted);
+
+        font-size: 1.15rem;
+
+        max-width: 700px;
+
+        margin: 25px auto;
+      }
+
+      .hero-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+      }
+
+      /* =========================================================
+   FEATURES
+   ========================================================= */
+
+      .feature-card {
+        height: 100%;
+
+        padding: 28px;
+
+        transition: 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+
+        border-color: rgba(124, 92, 255, 0.5);
+      }
+
+      .feature-icon {
+        width: 58px;
+
+        height: 58px;
+
+        display: grid;
+
+        place-items: center;
+
+        border-radius: 18px;
+
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+
+        font-size: 1.5rem;
+
+        margin-bottom: 20px;
+      }
+
+      /* =========================================================
+   SPACE EXPLORER
+   ========================================================= */
+
+      .space-panel {
+        padding: 30px;
+
+        overflow: hidden;
+      }
+
+      .space-system {
+        position: relative;
+
+        width: min(620px, 90vw);
+
+        height: min(620px, 90vw);
+
+        margin: 20px auto;
+
+        display: grid;
+
+        place-items: center;
+      }
+
+      /* SUN */
+
+      .sun {
+        width: 75px;
+
+        height: 75px;
+
+        border-radius: 50%;
+
+        background: radial-gradient(
+          circle at 35% 35%,
+          #fff7a8 0%,
+          #ffd43b 35%,
+          #ff9f00 65%,
+          #ff5c00 100%
+        );
+
+        box-shadow:
+          0 0 25px #ffb000,
+          0 0 60px rgba(255, 174, 0, 0.55),
+          0 0 100px rgba(255, 120, 0, 0.25);
+
+        position: absolute;
+
+        left: 50%;
+
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 10;
+      }
+
+      /* =========================================================
+   ORBITS
+   ========================================================= */
+
+      .orbit {
+        position: absolute;
+
+        left: 50%;
+
+        top: 50%;
+
+        border: 1px solid rgba(255, 255, 255, 0.16);
+
+        border-radius: 50%;
+
+        transform: translate(-50%, -50%);
+
+        animation-name: orbitRotation;
+
+        animation-timing-function: linear;
+
+        animation-iteration-count: infinite;
+
+        pointer-events: none;
+      }
+
+      body.light .orbit {
+        border-color: rgba(20, 30, 70, 0.16);
+      }
+
+      /*
+   The planet sits directly on the orbit circumference.
+*/
+
+      .orbit-1 {
+        width: 110px;
+
+        height: 110px;
+
+        animation-duration: 6s;
+      }
+
+      .orbit-2 {
+        width: 160px;
+
+        height: 160px;
+
+        animation-duration: 9s;
+      }
+
+      .orbit-3 {
+        width: 215px;
+
+        height: 215px;
+
+        animation-duration: 12s;
+      }
+
+      .orbit-4 {
+        width: 275px;
+
+        height: 275px;
+
+        animation-duration: 16s;
+      }
+
+      .orbit-5 {
+        width: 350px;
+
+        height: 350px;
+
+        animation-duration: 22s;
+      }
+
+      .orbit-6 {
+        width: 425px;
+
+        height: 425px;
+
+        animation-duration: 28s;
+      }
+
+      .orbit-7 {
+        width: 500px;
+
+        height: 500px;
+
+        animation-duration: 34s;
+      }
+
+      .orbit-8 {
+        width: 580px;
+
+        height: 580px;
+
+        animation-duration: 40s;
+      }
+
+      /* ORBIT ANIMATION */
+
+      @keyframes orbitRotation {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .orbit.paused {
+        animation-play-state: paused;
+      }
+
+      /* =========================================================
+   PLANETS
+   ========================================================= */
+
+      .planet {
+        position: absolute;
+
+        left: 50%;
+
+        top: 0;
+
+        transform: translate(-50%, -50%);
+
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        pointer-events: auto;
+
+        z-index: 20;
+
+        transition:
+          filter 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .planet:hover {
+        filter: brightness(1.35);
+
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.55);
+
+        z-index: 30;
+      }
+
+      /* MERCURY */
+
+      .p-mercury {
+        width: 10px;
+
+        height: 10px;
+
+        background: radial-gradient(circle at 35% 30%, #ddd, #999);
+      }
+
+      /* VENUS */
+
+      .p-venus {
+        width: 15px;
+
+        height: 15px;
+
+        background: radial-gradient(circle at 35% 30%, #ffe0a3, #c97832);
+      }
+
+      /* EARTH */
+
+      .p-earth {
+        width: 18px;
+
+        height: 18px;
+
+        background: radial-gradient(
+          circle at 35% 30%,
+          #72d9ff,
+          #2777e8 55%,
+          #1749a7
+        );
+
+        box-shadow: 0 0 7px rgba(50, 160, 255, 0.5);
+      }
+
+      /* MARS */
+
+      .p-mars {
+        width: 16px;
+
+        height: 16px;
+
+        background: radial-gradient(circle at 35% 30%, #ff957b, #c94032);
+      }
+
+      /* JUPITER */
+
+      .p-jupiter {
+        width: 32px;
+
+        height: 32px;
+
+        background: linear-gradient(
+          180deg,
+          #e8c08d 0%,
+          #c99562 25%,
+          #e1b987 45%,
+          #a96f48 60%,
+          #d3a276 80%,
+          #b67e54 100%
+        );
+      }
+
+      /* SATURN */
+
+      .p-saturn {
+        width: 29px;
+
+        height: 29px;
+
+        background: radial-gradient(circle at 35% 30%, #ffe5a6, #c5a566);
+
+        z-index: 25;
+      }
+
+      /* SATURN RINGS */
+
+      .p-saturn::after {
+        content: "";
+
+        position: absolute;
+
+        width: 48px;
+
+        height: 13px;
+
+        left: 50%;
+
+        top: 50%;
+
+        transform: translate(-50%, -50%) rotate(-20deg);
+
+        border: 2px solid rgba(235, 210, 150, 0.9);
+
+        border-radius: 50%;
+
+        pointer-events: none;
+      }
+
+      /* URANUS */
+
+      .p-uranus {
+        width: 23px;
+
+        height: 23px;
+
+        background: radial-gradient(circle at 35% 30%, #b9ffff, #5cc9d5);
+      }
+
+      /* NEPTUNE */
+
+      .p-neptune {
+        width: 23px;
+
+        height: 23px;
+
+        background: radial-gradient(circle at 35% 30%, #78a8ff, #2861c7);
+      }
+
+      /* =========================================================
+   SPACE CONTROLS
+   ========================================================= */
+
+      .control-bar {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 8px;
+
+        justify-content: center;
+
+        margin-top: 25px;
+      }
+
+      /* =========================================================
+   PLANET CARDS
+   ========================================================= */
+
+      .planet-card {
+        height: 100%;
+
+        padding: 22px;
+
+        transition: 0.3s;
+
+        cursor: pointer;
+      }
+
+      .planet-card:hover {
+        transform: translateY(-7px);
+
+        border-color: var(--accent);
+      }
+
+      .planet-dot {
+        width: 28px;
+
+        height: 28px;
+
+        border-radius: 50%;
+
+        display: inline-block;
+
+        vertical-align: middle;
+
+        margin-right: 10px;
+      }
+
+      /* =========================================================
+   MOONS
+   ========================================================= */
+
+      .moon-card {
+        padding: 22px;
+
+        height: 100%;
+
+        cursor: pointer;
+
+        transition: 0.25s;
+      }
+
+      .moon-card:hover,
+      .moon-card.active {
+        border-color: var(--accent2);
+
+        transform: translateY(-5px);
+      }
+
+      .moon-icon {
+        font-size: 2rem;
+      }
+
+      /* =========================================================
+   FACT
+   ========================================================= */
+
+      .fact-box {
+        padding: 30px;
+
+        text-align: center;
+      }
+
+      .fact-box i {
+        font-size: 2rem;
+
+        color: var(--accent2);
+      }
+
+      /* =========================================================
+   TIMELINE
+   ========================================================= */
+
+      .timeline {
+        position: relative;
+
+        max-width: 850px;
+
+        margin: auto;
+      }
+
+      .timeline::before {
+        content: "";
+
+        position: absolute;
+
+        left: 20px;
+
+        top: 0;
+
+        bottom: 0;
+
+        width: 2px;
+
+        background: linear-gradient(var(--accent), var(--accent2));
+      }
+
+      .timeline-item {
+        position: relative;
+
+        padding-left: 60px;
+
+        margin-bottom: 35px;
+      }
+
+      .timeline-dot {
+        position: absolute;
+
+        left: 10px;
+
+        top: 4px;
+
+        width: 22px;
+
+        height: 22px;
+
+        border-radius: 50%;
+
+        background: var(--accent);
+
+        border: 4px solid var(--bg);
+      }
+
+      /* =========================================================
+   VIRTUAL LAB
+   ========================================================= */
+
+      .lab-wrapper {
+        display: grid;
+
+        grid-template-columns: 230px 1fr;
+
+        gap: 20px;
+      }
+
+      .lab-sidebar {
+        padding: 15px;
+      }
+
+      .lab-tab {
+        width: 100%;
+
+        text-align: left;
+
+        padding: 14px;
+
+        margin-bottom: 8px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        background: transparent;
+
+        color: var(--muted) !important;
+
+        font-weight: 700;
+
+        transition: 0.2s;
+      }
+
+      .lab-tab:hover,
+      .lab-tab:focus {
+        color: var(--text) !important;
+
+        background: rgba(124, 92, 255, 0.12);
+      }
+
+      .lab-tab.active {
+        background: linear-gradient(
+          135deg,
+          rgba(124, 92, 255, 0.3),
+          rgba(0, 217, 255, 0.15)
+        );
+
+        color: var(--text) !important;
+      }
+
+      .lab-tab i {
+        color: inherit;
+      }
+
+      .lab-content {
+        min-height: 420px;
+
+        padding: 30px;
+      }
+
+      .lab-panel {
+        display: none;
+      }
+
+      .lab-panel.active {
+        display: block;
+      }
+
+      /* =========================================================
+   CHEMISTRY
+   ========================================================= */
+
+      .beaker {
+        width: 150px;
+
+        height: 180px;
+
+        margin: 25px auto;
+
+        border: 5px solid rgba(255, 255, 255, 0.45);
+
+        border-top: none;
+
+        border-radius: 0 0 35px 35px;
+
+        position: relative;
+
+        overflow: hidden;
+
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .liquid {
+        position: absolute;
+
+        left: 0;
+
+        right: 0;
+
+        bottom: 0;
+
+        height: 45%;
+
+        background: linear-gradient(180deg, #54e6ff, #5267ff);
+
+        transition: 0.5s;
+      }
+
+      .chemical-log {
+        min-height: 80px;
+
+        padding: 15px;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        border-radius: 14px;
+      }
+
+      /* =========================================================
+   CIRCUIT
+   ========================================================= */
+
+      .circuit {
+        position: relative;
+
+        height: 220px;
+
+        max-width: 650px;
+
+        margin: auto;
+      }
+
+      .wire {
+        position: absolute;
+
+        background: var(--accent2);
+
+        transition: 0.3s;
+      }
+
+      .wire.top {
+        top: 35px;
+
+        left: 100px;
+
+        right: 100px;
+
+        height: 4px;
+      }
+
+      .wire.bottom {
+        bottom: 35px;
+
+        left: 100px;
+
+        right: 100px;
+
+        height: 4px;
+      }
+
+      .wire.left {
+        top: 35px;
+
+        bottom: 35px;
+
+        left: 100px;
+
+        width: 4px;
+      }
+
+      .wire.right {
+        top: 35px;
+
+        bottom: 35px;
+
+        right: 100px;
+
+        width: 4px;
+      }
+
+      .battery {
+        position: absolute;
+
+        left: 65px;
+
+        top: 75px;
+
+        width: 70px;
+
+        height: 80px;
+
+        border: 3px solid var(--text);
+
+        border-radius: 8px;
+
+        display: grid;
+
+        place-items: center;
+      }
+
+      .bulb {
+        position: absolute;
+
+        right: 65px;
+
+        top: 72px;
+
+        font-size: 70px;
+
+        color: var(--muted);
+
+        transition: 0.3s;
+      }
+
+      .circuit.on .wire {
+        box-shadow: 0 0 15px var(--accent2);
+      }
+
+      .circuit.on .bulb {
+        color: #ffe45c;
+
+        text-shadow: 0 0 30px #ffe45c;
+      }
+
+      /* =========================================================
+   BIOLOGY CELL
+   ========================================================= */
+
+      .cell {
+        width: 280px;
+
+        height: 280px;
+
+        margin: 20px auto;
+
+        border-radius: 50%;
+
+        border: 10px solid rgba(255, 255, 255, 0.15);
+
+        background: radial-gradient(
+          circle,
+          rgba(124, 92, 255, 0.22),
+          rgba(0, 217, 255, 0.08)
+        );
+
+        position: relative;
+      }
+
+      .nucleus {
+        position: absolute;
+
+        width: 90px;
+
+        height: 90px;
+
+        border-radius: 50%;
+
+        background: radial-gradient(circle, #b65cff, #6336c7);
+
+        top: 95px;
+
+        left: 85px;
+
+        display: grid;
+
+        place-items: center;
+
+        cursor: pointer;
+      }
+
+      .organelle {
+        position: absolute;
+
+        width: 22px;
+
+        height: 14px;
+
+        border-radius: 50%;
+
+        background: #35d5b0;
+
+        cursor: pointer;
+      }
+
+      /* =========================================================
+   SCIENCE TOOLS
+   ========================================================= */
+
+      .tool-card {
+        padding: 25px;
+
+        height: 100%;
+      }
+
+      .tool-value {
+        font-size: 2.3rem;
+
+        font-weight: 900;
+      }
+
+      .range-value {
+        color: var(--accent2);
+
+        font-weight: 800;
+      }
+
+      /* =========================================================
+   INPUTS / SELECTS
+   ========================================================= */
+
+      textarea,
+      input,
+      select,
+      .form-control,
+      .form-select {
+        background-color: var(--card-solid) !important;
+
+        color: var(--text) !important;
+
+        border-color: var(--border) !important;
+      }
+
+      textarea::placeholder,
+      input::placeholder {
+        color: var(--muted) !important;
+      }
+
+      /* =========================================================
+   IMPORTANT TEXT VISIBILITY FIX
+   ========================================================= */
+
+      /* SELECT LISTS */
+
+      select,
+      .form-select,
+      select option,
+      .form-select option {
+        color: var(--text) !important;
+
+        background-color: var(--card-solid) !important;
+      }
+
+      /* COMPARISON TABLE */
+
+      .table,
+      .table th,
+      .table td {
+        color: var(--text) !important;
+      }
+
+      .table-dark {
+        --bs-table-color: var(--text) !important;
+
+        --bs-table-bg: var(--card-solid) !important;
+
+        --bs-table-border-color: var(--border) !important;
+      }
+
+      /* LAB LIST */
+
+      .lab-tab,
+      .lab-tab:hover,
+      .lab-tab:focus,
+      .lab-tab.active {
+        color: var(--text) !important;
+      }
+
+      /* QUIZ ANSWERS */
+
+      .answer-btn,
+      .answer-btn:hover,
+      .answer-btn:focus {
+        color: var(--text) !important;
+      }
+
+      /* DROPDOWNS */
+
+      .dropdown-menu {
+        background: var(--card-solid);
+
+        border: 1px solid var(--border);
+      }
+
+      .dropdown-item {
+        color: var(--text);
+      }
+
+      .dropdown-item:hover,
+      .dropdown-item:focus {
+        color: var(--text);
+
+        background: rgba(124, 92, 255, 0.15);
+      }
+
+      /* =========================================================
+   JOURNAL
+   ========================================================= */
+
+      .journal-area {
+        min-height: 180px;
+
+        resize: vertical;
+      }
+
+      /* =========================================================
+   QUIZ
+   ========================================================= */
+
+      .quiz-card {
+        padding: 30px;
+
+        max-width: 850px;
+
+        margin: auto;
+      }
+
+      .question-number {
+        color: var(--accent2);
+
+        font-weight: 800;
+      }
+
+      .answer-btn {
+        width: 100%;
+
+        text-align: left;
+
+        padding: 15px 18px;
+
+        margin-top: 10px;
+
+        border-radius: 14px;
+
+        border: 1px solid var(--border);
+
+        background: var(--card2);
+
+        font-weight: 700;
+
+        transition: 0.2s;
+      }
+
+      .answer-btn:hover {
+        background: rgba(124, 92, 255, 0.15);
+      }
+
+      .answer-btn.correct {
+        background: rgba(54, 227, 155, 0.18);
+
+        border-color: var(--success);
+      }
+
+      .answer-btn.wrong {
+        background: rgba(255, 92, 122, 0.18);
+
+        border-color: var(--danger);
+      }
+
+      .progress {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .progress-bar {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+      }
+
+      /* =========================================================
+   ACHIEVEMENTS
+   ========================================================= */
+
+      .achievement {
+        padding: 20px;
+
+        text-align: center;
+
+        height: 100%;
+
+        opacity: 0.45;
+      }
+
+      .achievement.unlocked {
+        opacity: 1;
+
+        border-color: var(--accent);
+      }
+
+      .achievement-icon {
+        font-size: 2.3rem;
+
+        margin-bottom: 10px;
+      }
+
+      /* =========================================================
+   FOOTER
+   ========================================================= */
+
+      footer {
+        border-top: 1px solid var(--border);
+
+        padding: 35px 0;
+
+        color: var(--muted);
+      }
+
+      /* =========================================================
+   MODALS
+   ========================================================= */
+
+      .modal-content {
+        background: var(--card-solid);
+
+        color: var(--text);
+
+        border: 1px solid var(--border);
+      }
+
+      .modal-header,
+      .modal-footer {
+        border-color: var(--border);
+      }
+
+      .btn-close {
+        filter: invert(1);
+      }
+
+      body.light .btn-close {
+        filter: none;
+      }
+
+      /* =========================================================
+   TOAST
+   ========================================================= */
+
+      .toast-container {
+        z-index: 9999;
+      }
+
+      .toast {
+        background: var(--card-solid);
+
+        color: var(--text);
+
+        border: 1px solid var(--border);
+      }
+
+      /* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+      @media (max-width: 768px) {
+        section {
+          padding: 65px 0;
+        }
+
+        .hero h1 {
+          letter-spacing: -2px;
+        }
+
+        .lab-wrapper {
+          grid-template-columns: 1fr;
+        }
+
+        .lab-sidebar {
+          display: flex;
+
+          gap: 7px;
+
+          overflow-x: auto;
+        }
+
+        .lab-tab {
+          min-width: 145px;
+
+          margin: 0;
+        }
+
+        .space-system {
+          transform: scale(0.72);
+
+          margin-top: -40px;
+
+          margin-bottom: -40px;
+        }
+
+        .timeline::before {
+          left: 10px;
+        }
+
+        .timeline-item {
+          padding-left: 40px;
+        }
+
+        .timeline-dot {
+          left: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <i class="bi bi-stars"></i>
+          ASTR<span>ION</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <i class="bi bi-list text-light"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link" href="#space"> Space </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#lab"> Virtual Lab </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#tools"> Tools </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#quiz"> Quiz </a>
+            </li>
+
+            <li class="nav-item ms-lg-3">
+              <button
+                class="btn btn-sm btn-outline-light"
+                onclick="toggleTheme()"
+              >
+                <i class="bi bi-circle-half"></i>
+              </button>
+            </li>
+
+            <li class="nav-item ms-lg-2">
+              <button
+                class="btn btn-sm btn-outline-light"
+                onclick="toggleFullscreen()"
+              >
+                <i class="bi bi-fullscreen"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- =========================================================
+     HERO
+     ========================================================= -->
+
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="bi bi-stars"></i>
+
+            Interactive Science Platform
+          </div>
+
+          <h1>
+            Explore.
+
+            <span>Experiment.</span>
+
+            Discover.
+          </h1>
+
+          <p>
+            Welcome to ASTRION — an interactive journey through space,
+            chemistry, physics, biology and scientific discovery.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#space" class="btn btn-primary btn-lg">
+              <i class="bi bi-rocket-takeoff"></i>
+
+              Explore Space
+            </a>
+
+            <a href="#lab" class="btn btn-outline-light btn-lg">
+              <i class="bi bi-flask"></i>
+
+              Enter Virtual Lab
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     FEATURES
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">One Universe. Many Discoveries.</h2>
+
+          <p class="section-subtitle">
+            Learn science by interacting with it instead of simply reading about
+            it.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="glass feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-globe2"></i>
+              </div>
+
+              <h4>Space Explorer</h4>
+
+              <p class="text-secondary">
+                Explore planets, moons, missions and fascinating facts about our
+                cosmic neighborhood.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="glass feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-flask"></i>
+              </div>
+
+              <h4>Virtual Laboratory</h4>
+
+              <p class="text-secondary">
+                Experiment with chemistry, circuits and biological cells inside
+                an interactive virtual lab.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="glass feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-trophy"></i>
+              </div>
+
+              <h4>Learn & Earn</h4>
+
+              <p class="text-secondary">
+                Complete quizzes, unlock achievements and track your
+                science-learning progress.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     SPACE EXPLORER
+     ========================================================= -->
+
+    <section id="space">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">
+            <i class="bi bi-rocket"></i>
+
+            Space Explorer
+          </h2>
+
+          <p class="section-subtitle">
+            Click a planet to discover more about it.
+          </p>
+        </div>
+
+        <div class="glass space-panel">
+          <div class="space-system" id="spaceSystem">
+            <div class="sun"></div>
+
+            <div class="orbit orbit-1">
+              <div
+                class="planet p-mercury"
+                onclick="selectPlanet('Mercury')"
+              ></div>
+            </div>
+
+            <div class="orbit orbit-2">
+              <div class="planet p-venus" onclick="selectPlanet('Venus')"></div>
+            </div>
+
+            <div class="orbit orbit-3">
+              <div class="planet p-earth" onclick="selectPlanet('Earth')"></div>
+            </div>
+
+            <div class="orbit orbit-4">
+              <div class="planet p-mars" onclick="selectPlanet('Mars')"></div>
+            </div>
+
+            <div class="orbit orbit-5">
+              <div
+                class="planet p-jupiter"
+                onclick="selectPlanet('Jupiter')"
+              ></div>
+            </div>
+
+            <div class="orbit orbit-6">
+              <div
+                class="planet p-saturn"
+                onclick="selectPlanet('Saturn')"
+              ></div>
+            </div>
+
+            <div class="orbit orbit-7">
+              <div
+                class="planet p-uranus"
+                onclick="selectPlanet('Uranus')"
+              ></div>
+            </div>
+
+            <div class="orbit orbit-8">
+              <div
+                class="planet p-neptune"
+                onclick="selectPlanet('Neptune')"
+              ></div>
+            </div>
+          </div>
+
+          <!-- SPACE CONTROLS -->
+
+          <div class="control-bar">
+            <button
+              class="btn btn-sm btn-outline-light"
+              onclick="toggleOrbits()"
+            >
+              <i class="bi bi-pause-fill"></i>
+
+              Pause / Resume
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-light"
+              onclick="setSpeed(0.5)"
+            >
+              0.5× Speed
+            </button>
+
+            <button class="btn btn-sm btn-outline-light" onclick="setSpeed(1)">
+              1× Speed
+            </button>
+
+            <button class="btn btn-sm btn-outline-light" onclick="setSpeed(2)">
+              2× Speed
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-light"
+              onclick="changeZoom(1.12)"
+            >
+              <i class="bi bi-zoom-in"></i>
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-light"
+              onclick="changeZoom(0.88)"
+            >
+              <i class="bi bi-zoom-out"></i>
+            </button>
+
+            <button class="btn btn-sm btn-outline-light" onclick="resetSpace()">
+              <i class="bi bi-arrow-counterclockwise"></i>
+
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     PLANETS
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Planet Database</h2>
+
+          <p class="section-subtitle">Select a planet to learn more.</p>
+        </div>
+
+        <div class="row g-4" id="planetCards"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     MOON EXPLORER
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">
+            <i class="bi bi-moon-stars"></i>
+
+            Moon Explorer
+          </h2>
+
+          <p class="section-subtitle">
+            Discover interesting moons across the Solar System.
+          </p>
+        </div>
+
+        <div class="row g-4" id="moonCards"></div>
+
+        <div class="glass p-4 mt-4 text-center">
+          <h4 id="moonTitle">Select a moon</h4>
+
+          <p id="moonDescription" class="text-secondary mb-0">
+            Click a moon above to learn more.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     SPACE FACT
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="glass fact-box">
+          <i class="bi bi-lightbulb"></i>
+
+          <h3 class="mt-3">Did You Know?</h3>
+
+          <p id="factText" class="lead mb-3">
+            Click the button to discover a random space fact.
+          </p>
+
+          <button class="btn btn-primary" onclick="newFact()">
+            <i class="bi bi-shuffle"></i>
+
+            New Fact
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     MISSION TIMELINE
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Space Mission Timeline</h2>
+
+          <p class="section-subtitle">
+            Important moments in human space exploration.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="glass p-4">
+              <h5>1957 — Sputnik 1</h5>
+
+              <p class="text-secondary mb-0">
+                The Soviet Union launched Sputnik 1, the first artificial
+                satellite.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="glass p-4">
+              <h5>1969 — Apollo 11</h5>
+
+              <p class="text-secondary mb-0">
+                Humans reached the surface of the Moon during NASA's Apollo 11
+                mission.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="glass p-4">
+              <h5>1990 — Hubble</h5>
+
+              <p class="text-secondary mb-0">
+                The Hubble Space Telescope began its journey into orbit.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="glass p-4">
+              <h5>2021 — James Webb</h5>
+
+              <p class="text-secondary mb-0">
+                The James Webb Space Telescope launched to study the universe in
+                infrared light.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     VIRTUAL LAB
+     ========================================================= -->
+
+    <section id="lab">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">
+            <i class="bi bi-flask"></i>
+
+            Virtual Science Lab
+          </h2>
+
+          <p class="section-subtitle">
+            Run interactive science experiments safely inside your browser.
+          </p>
+        </div>
+
+        <div class="lab-wrapper">
+          <!-- SIDEBAR -->
+
+          <div class="glass lab-sidebar">
+            <button class="lab-tab active" onclick="showLab('chemistry', this)">
+              <i class="bi bi-droplet"></i>
+
+              Chemistry
+            </button>
+
+            <button class="lab-tab" onclick="showLab('physics', this)">
+              <i class="bi bi-lightning"></i>
+
+              Physics
+            </button>
+
+            <button class="lab-tab" onclick="showLab('biology', this)">
+              <i class="bi bi-virus"></i>
+
+              Biology
+            </button>
+          </div>
+
+          <!-- CONTENT -->
+
+          <div class="glass lab-content">
+            <!-- CHEMISTRY -->
+
+            <div class="lab-panel active" id="chemistry">
+              <h3>Chemical Mixing Lab</h3>
+
+              <p class="text-secondary">
+                Add virtual substances and observe the simulated result.
+              </p>
+
+              <div class="beaker">
+                <div class="liquid" id="liquid"></div>
+              </div>
+
+              <div class="text-center">
+                <button
+                  class="btn btn-primary m-1"
+                  onclick="addChemical('Acid')"
+                >
+                  Add Acid
+                </button>
+
+                <button
+                  class="btn btn-primary m-1"
+                  onclick="addChemical('Base')"
+                >
+                  Add Base
+                </button>
+
+                <button
+                  class="btn btn-primary m-1"
+                  onclick="addChemical('Indicator')"
+                >
+                  Add Indicator
+                </button>
+
+                <button
+                  class="btn btn-outline-light m-1"
+                  onclick="resetChemistry()"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div class="chemical-log mt-4" id="chemicalLog">
+                <strong> Experiment log: </strong>
+
+                <div class="text-secondary">No chemicals added yet.</div>
+              </div>
+            </div>
+
+            <!-- PHYSICS -->
+
+            <div class="lab-panel" id="physics">
+              <h3>Interactive Circuit</h3>
+
+              <p class="text-secondary">
+                Turn the circuit on and observe the bulb.
+              </p>
+
+              <div class="circuit" id="circuit">
+                <div class="wire top"></div>
+
+                <div class="wire bottom"></div>
+
+                <div class="wire left"></div>
+
+                <div class="wire right"></div>
+
+                <div class="battery">
+                  <i class="bi bi-battery-charging"></i>
+                </div>
+
+                <div class="bulb">
+                  <i class="bi bi-lightbulb-fill"></i>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button class="btn btn-primary" onclick="updateCircuit()">
+                  Toggle Circuit
+                </button>
+
+                <button class="btn btn-outline-light" onclick="resetCircuit()">
+                  Reset
+                </button>
+              </div>
+
+              <p class="text-center mt-3" id="circuitStatus">
+                Circuit is currently OFF.
+              </p>
+            </div>
+
+            <!-- BIOLOGY -->
+
+            <div class="lab-panel" id="biology">
+              <h3>Interactive Cell</h3>
+
+              <p class="text-secondary">
+                Click the cell structures to learn what they do.
+              </p>
+
+              <div class="cell">
+                <div class="nucleus" onclick="cellPart('Nucleus')">N</div>
+
+                <div
+                  class="organelle"
+                  style="top: 55px; left: 45px"
+                  onclick="cellPart('Mitochondria')"
+                ></div>
+
+                <div
+                  class="organelle"
+                  style="top: 180px; left: 50px"
+                  onclick="cellPart('Ribosome')"
+                ></div>
+
+                <div
+                  class="organelle"
+                  style="top: 65px; right: 45px"
+                  onclick="cellPart('Vacuole')"
+                ></div>
+
+                <div
+                  class="organelle"
+                  style="bottom: 55px; right: 50px"
+                  onclick="cellPart('Mitochondria')"
+                ></div>
+              </div>
+
+              <div class="glass p-3 text-center" id="cellInfo">
+                Click a structure.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     SCIENCE TOOLS
+     ========================================================= -->
+
+    <section id="tools">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Science Tools</h2>
+
+          <p class="section-subtitle">Interactive measurement tools.</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- THERMOMETER -->
+
+          <div class="col-md-4">
+            <div class="glass tool-card">
+              <h4>
+                <i class="bi bi-thermometer-half"></i>
+
+                Thermometer
+              </h4>
+
+              <div class="tool-value" id="temperatureValue">25°C</div>
+
+              <input
+                type="range"
+                class="form-range"
+                min="-20"
+                max="100"
+                value="25"
+                oninput="updateTemperature(this.value)"
+              />
+
+              <p class="text-secondary mb-0">
+                Temperature:
+
+                <span id="temperatureText" class="range-value"> 25°C </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- BALANCE -->
+
+          <div class="col-md-4">
+            <div class="glass tool-card">
+              <h4>
+                <i class="bi bi-speedometer2"></i>
+
+                Digital Balance
+              </h4>
+
+              <div class="tool-value" id="massValue">0 g</div>
+
+              <button class="btn btn-primary" onclick="addMass(10)">
+                Add 10g
+              </button>
+
+              <button class="btn btn-outline-light" onclick="addMass(-10)">
+                Remove 10g
+              </button>
+
+              <button class="btn btn-outline-light" onclick="addMass(0)">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- TIMER -->
+
+          <div class="col-md-4">
+            <div class="glass tool-card">
+              <h4>
+                <i class="bi bi-stopwatch"></i>
+
+                Experiment Timer
+              </h4>
+
+              <div class="tool-value" id="timerValue">00:00</div>
+
+              <button class="btn btn-primary" onclick="startTimer()">
+                Start
+              </button>
+
+              <button class="btn btn-outline-light" onclick="pauseTimer()">
+                Pause
+              </button>
+
+              <button class="btn btn-outline-light" onclick="resetTimer()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     JOURNAL
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Experiment Journal</h2>
+
+          <p class="section-subtitle">
+            Write down your observations and save them locally.
+          </p>
+        </div>
+
+        <div class="glass p-4">
+          <textarea
+            id="journal"
+            class="form-control journal-area"
+            placeholder="Write your observations here..."
+          ></textarea>
+
+          <div class="d-flex gap-2 mt-3 flex-wrap">
+            <button class="btn btn-primary" onclick="saveJournal()">
+              <i class="bi bi-save"></i>
+
+              Save Journal
+            </button>
+
+            <button class="btn btn-outline-light" onclick="loadJournal()">
+              <i class="bi bi-arrow-clockwise"></i>
+
+              Load Saved Journal
+            </button>
+
+            <button class="btn btn-outline-light" onclick="clearJournal()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     QUIZ
+     ========================================================= -->
+
+    <section id="quiz">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Science Challenge</h2>
+
+          <p class="section-subtitle">Test what you have learned.</p>
+        </div>
+
+        <div class="glass quiz-card">
+          <div class="d-flex justify-content-between mb-3">
+            <span class="question-number" id="questionNumber">
+              Question 1 / 10
+            </span>
+
+            <span id="quizScore"> Score: 0 </span>
+          </div>
+
+          <div class="progress mb-4">
+            <div
+              class="progress-bar"
+              id="quizProgress"
+              style="width: 10%"
+            ></div>
+          </div>
+
+          <h4 id="questionText">Question</h4>
+
+          <div id="answers"></div>
+
+          <div id="quizFeedback" class="mt-3"></div>
+
+          <button
+            id="nextQuestionBtn"
+            class="btn btn-primary mt-3 d-none"
+            onclick="nextQuestion()"
+          >
+            Next Question
+
+            <i class="bi bi-arrow-right"></i>
+          </button>
+
+          <div id="quizResult" class="text-center d-none">
+            <h2>Quiz Complete!</h2>
+
+            <div class="display-5 fw-bold" id="finalScore">0 / 10</div>
+
+            <p id="finalPercentage" class="text-secondary">0%</p>
+
+            <button class="btn btn-primary" onclick="restartQuiz()">
+              Restart Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     ACHIEVEMENTS
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Achievements</h2>
+
+          <p class="section-subtitle">Unlock badges as you explore.</p>
+        </div>
+
+        <div class="row g-4" id="achievements"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     PROGRESS
+     ========================================================= -->
+
+    <section>
+      <div class="container">
+        <div class="glass p-4">
+          <div class="row text-center g-4">
+            <div class="col-md-4">
+              <h6 class="text-secondary">XP</h6>
+
+              <h2 id="xpValue">0</h2>
+            </div>
+
+            <div class="col-md-4">
+              <h6 class="text-secondary">Quiz Score</h6>
+
+              <h2 id="scoreValue">0</h2>
+            </div>
+
+            <div class="col-md-4">
+              <h6 class="text-secondary">Achievements</h6>
+
+              <h2 id="achievementValue">0</h2>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn btn-outline-light" onclick="resetProgress()">
+              <i class="bi bi-trash"></i>
+
+              Reset Progress
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+    <footer>
+      <div class="container text-center">
+        <h5>
+          <i class="bi bi-stars"></i>
+          ASTRION
+        </h5>
+
+        <p class="mb-1">Space • Science • Discovery</p>
+
+        <small> Interactive Science Explorer </small>
+      </div>
+    </footer>
+
+    <!-- =========================================================
+     PLANET MODAL
+     ========================================================= -->
+
+    <div class="modal fade" id="planetModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="planetModalTitle">Planet</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div id="planetModalContent"></div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-outline-light" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+     COMPARISON MODAL
+     ========================================================= -->
+
+    <div class="modal fade" id="compareModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Compare Planets</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label"> Planet 1 </label>
+
+                <select id="planetA" class="form-select"></select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label"> Planet 2 </label>
+
+                <select id="planetB" class="form-select"></select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary mt-3" onclick="comparePlanets()">
+              Compare
+            </button>
+
+            <div id="comparisonResult" class="mt-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="toast" class="toast" role="alert">
+        <div class="toast-body" id="toastText">Done!</div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      /* =========================================================
+   PLANET DATA
+   ========================================================= */
+
+      const planets = {
+        Mercury: {
+          type: "Terrestrial",
+          distance: "57.9 million km",
+          diameter: "4,879 km",
+          moons: "0",
+          temperature: "-173°C to 427°C",
+          description:
+            "Mercury is the smallest planet and the closest planet to the Sun.",
+        },
+
+        Venus: {
+          type: "Terrestrial",
+          distance: "108.2 million km",
+          diameter: "12,104 km",
+          moons: "0",
+          temperature: "≈ 465°C",
+          description:
+            "Venus is covered by a thick atmosphere and is the hottest planet.",
+        },
+
+        Earth: {
+          type: "Terrestrial",
+          distance: "149.6 million km",
+          diameter: "12,742 km",
+          moons: "1",
+          temperature: "≈ 15°C",
+          description: "Earth is the only known planet to support life.",
+        },
+
+        Mars: {
+          type: "Terrestrial",
+          distance: "227.9 million km",
+          diameter: "6,779 km",
+          moons: "2",
+          temperature: "≈ -63°C",
+          description:
+            "Mars is known as the Red Planet because of iron minerals on its surface.",
+        },
+
+        Jupiter: {
+          type: "Gas Giant",
+          distance: "778.5 million km",
+          diameter: "139,820 km",
+          moons: "Many",
+          temperature: "≈ -110°C",
+          description: "Jupiter is the largest planet in the Solar System.",
+        },
+
+        Saturn: {
+          type: "Gas Giant",
+          distance: "1.43 billion km",
+          diameter: "116,460 km",
+          moons: "Many",
+          temperature: "≈ -140°C",
+          description: "Saturn is famous for its spectacular ring system.",
+        },
+
+        Uranus: {
+          type: "Ice Giant",
+          distance: "2.87 billion km",
+          diameter: "50,724 km",
+          moons: "Many",
+          temperature: "≈ -195°C",
+          description:
+            "Uranus rotates on its side compared with most other planets.",
+        },
+
+        Neptune: {
+          type: "Ice Giant",
+          distance: "4.5 billion km",
+          diameter: "49,244 km",
+          moons: "Many",
+          temperature: "≈ -200°C",
+          description: "Neptune is the farthest major planet from the Sun.",
+        },
+      };
+
+      /* =========================================================
+   MOON DATA
+   ========================================================= */
+
+      const moons = {
+        Moon: {
+          planet: "Earth",
+          description:
+            "Earth's Moon is our natural satellite and influences ocean tides.",
+        },
+
+        Europa: {
+          planet: "Jupiter",
+          description:
+            "Europa has a thick layer of ice and may contain a subsurface ocean.",
+        },
+
+        Titan: {
+          planet: "Saturn",
+          description:
+            "Titan has a thick atmosphere and lakes of liquid hydrocarbons.",
+        },
+
+        Ganymede: {
+          planet: "Jupiter",
+          description: "Ganymede is the largest moon in the Solar System.",
+        },
+
+        Enceladus: {
+          planet: "Saturn",
+          description:
+            "Enceladus is an icy moon known for jets of material erupting from its surface.",
+        },
+      };
+
+      /* =========================================================
+   SPACE FACTS
+   ========================================================= */
+
+      const facts = [
+        "Jupiter is the largest planet in the Solar System.",
+
+        "A day on Venus is longer than a year on Venus.",
+
+        "Saturn's average density is lower than water.",
+
+        "Mars has the largest volcano in the Solar System.",
+
+        "Neptune has extremely powerful winds.",
+
+        "Earth's atmosphere protects life from much of the Sun's harmful radiation.",
+
+        "The Sun contains most of the mass in the Solar System.",
+
+        "Ganymede is larger than the planet Mercury.",
+      ];
+
+      /* =========================================================
+   PLANET CARDS
+   ========================================================= */
+
+      function renderPlanetCards() {
+        const container = document.getElementById("planetCards");
+
+        container.innerHTML = "";
+
+        Object.keys(planets).forEach((name) => {
+          const p = planets[name];
+
+          const col = document.createElement("div");
+
+          col.className = "col-sm-6 col-lg-3";
+
+          col.innerHTML = `
+
+            <div
+                class="glass planet-card"
+                onclick="selectPlanet('${name}')">
+
+                <h5>
+
+                    <span
+                        class="planet-dot p-${name.toLowerCase()}">
+                    </span>
+
+                    ${name}
+
+                </h5>
+
+                <p class="text-secondary mb-2">
+                    ${p.type}
+                </p>
+
+                <small class="text-secondary">
+                    Diameter: ${p.diameter}
+                </small>
+
+            </div>
+
+        `;
+
+          container.appendChild(col);
+        });
+      }
+
+      /* =========================================================
+   SELECT PLANET
+   ========================================================= */
+
+      function selectPlanet(name) {
+        const p = planets[name];
+
+        if (!p) return;
+
+        openPlanetModal(name);
+
+        state.xp += 5;
+
+        updateProgress();
+
+        checkAchievements();
+      }
+
+      /* =========================================================
+   PLANET MODAL
+   ========================================================= */
+
+      function openPlanetModal(name) {
+        const p = planets[name];
+
+        document.getElementById("planetModalTitle").textContent = name;
+
+        document.getElementById("planetModalContent").innerHTML = `
+
+        <h3>${name}</h3>
+
+        <p class="text-secondary">
+            ${p.description}
+        </p>
+
+        <div class="table-responsive">
+
+        <table class="table table-dark">
+
+            <tbody>
+
+                <tr>
+                    <th>Type</th>
+                    <td>${p.type}</td>
+                </tr>
+
+                <tr>
+                    <th>Distance from Sun</th>
+                    <td>${p.distance}</td>
+                </tr>
+
+                <tr>
+                    <th>Diameter</th>
+                    <td>${p.diameter}</td>
+                </tr>
+
+                <tr>
+                    <th>Moons</th>
+                    <td>${p.moons}</td>
+                </tr>
+
+                <tr>
+                    <th>Temperature</th>
+                    <td>${p.temperature}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+        const modal = new bootstrap.Modal(
+          document.getElementById("planetModal"),
+        );
+
+        modal.show();
+      }
+
+      /* =========================================================
+   ORBIT CONTROLS
+   ========================================================= */
+
+      let currentSpeed = 1;
+
+      let orbitPaused = false;
+
+      let zoomLevel = 1;
+
+      function setSpeed(speed) {
+        currentSpeed = speed;
+
+        document.querySelectorAll(".orbit").forEach((orbit) => {
+          const duration = parseFloat(
+            getComputedStyle(orbit).animationDuration.replace("s", ""),
+          );
+
+          orbit.style.animationDuration = duration / speed + "s";
+        });
+
+        showToast(`Orbit speed: ${speed}×`);
+      }
+
+      function toggleOrbits() {
+        orbitPaused = !orbitPaused;
+
+        document.querySelectorAll(".orbit").forEach((orbit) => {
+          orbit.classList.toggle("paused", orbitPaused);
+        });
+      }
+
+      function changeZoom(amount) {
+        zoomLevel *= amount;
+
+        zoomLevel = Math.max(0.55, Math.min(1.35, zoomLevel));
+
+        document.getElementById("spaceSystem").style.transform =
+          `scale(${zoomLevel})`;
+      }
+
+      function resetSpace() {
+        zoomLevel = 1;
+
+        currentSpeed = 1;
+
+        orbitPaused = false;
+
+        const system = document.getElementById("spaceSystem");
+
+        system.style.transform = "scale(1)";
+
+        document.querySelectorAll(".orbit").forEach((orbit) => {
+          orbit.classList.remove("paused");
+
+          orbit.style.animationDuration = "";
+        });
+      }
+
+      /* =========================================================
+   MOONS
+   ========================================================= */
+
+      function renderMoons() {
+        const container = document.getElementById("moonCards");
+
+        container.innerHTML = "";
+
+        Object.keys(moons).forEach((name) => {
+          const moon = moons[name];
+
+          const col = document.createElement("div");
+
+          col.className = "col-sm-6 col-lg";
+
+          col.innerHTML = `
+
+            <div
+                class="glass moon-card"
+                onclick="selectMoon('${name}')">
+
+                <div class="moon-icon">
+                    🌙
+                </div>
+
+                <h5 class="mt-3">
+                    ${name}
+                </h5>
+
+                <p class="text-secondary mb-0">
+                    ${moon.planet}
+                </p>
+
+            </div>
+
+        `;
+
+          container.appendChild(col);
+        });
+      }
+
+      function selectMoon(name) {
+        const moon = moons[name];
+
+        document.getElementById("moonTitle").textContent =
+          `${name} — Moon of ${moon.planet}`;
+
+        document.getElementById("moonDescription").textContent =
+          moon.description;
+
+        state.xp += 5;
+
+        updateProgress();
+
+        checkAchievements();
+      }
+
+      /* =========================================================
+   FACTS
+   ========================================================= */
+
+      function newFact() {
+        const index = Math.floor(Math.random() * facts.length);
+
+        document.getElementById("factText").textContent = facts[index];
+
+        state.xp += 2;
+
+        updateProgress();
+      }
+
+      /* =========================================================
+   LAB TABS
+   ========================================================= */
+
+      function showLab(id, button) {
+        document.querySelectorAll(".lab-panel").forEach((panel) => {
+          panel.classList.remove("active");
+        });
+
+        document.querySelectorAll(".lab-tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        document.getElementById(id).classList.add("active");
+
+        button.classList.add("active");
+      }
+
+      /* =========================================================
+   CHEMISTRY
+   ========================================================= */
+
+      let chemicalItems = [];
+
+      function addChemical(item) {
+        chemicalItems.push(item);
+
+        const log = document.getElementById("chemicalLog");
+
+        log.innerHTML = `
+
+        <strong>
+            Experiment log:
+        </strong>
+
+        <div class="mt-2">
+
+            ${chemicalItems
+              .map(
+                (item) =>
+                  `<span class="badge text-bg-primary me-1">
+                            ${item}
+                        </span>`,
+              )
+              .join("")}
+
+        </div>
+
+    `;
+
+        const liquid = document.getElementById("liquid");
+
+        if (item === "Acid") {
+          liquid.style.background = "linear-gradient(#ff6b9d,#ff416c)";
+        }
+
+        if (item === "Base") {
+          liquid.style.background = "linear-gradient(#8b7cff,#4f46e5)";
+        }
+
+        if (item === "Indicator") {
+          liquid.style.background = "linear-gradient(#ff4ecd,#7c5cff)";
+        }
+
+        state.xp += 3;
+
+        updateProgress();
+
+        checkAchievements();
+      }
+
+      function resetChemistry() {
+        chemicalItems = [];
+
+        document.getElementById("liquid").style.background =
+          "linear-gradient(180deg,#54e6ff,#5267ff)";
+
+        document.getElementById("chemicalLog").innerHTML = `
+
+        <strong>
+            Experiment log:
+        </strong>
+
+        <div class="text-secondary">
+            No chemicals added yet.
+        </div>
+
+    `;
+      }
+
+      /* =========================================================
+   PHYSICS CIRCUIT
+   ========================================================= */
+
+      let circuitOn = false;
+
+      function updateCircuit() {
+        circuitOn = !circuitOn;
+
+        document.getElementById("circuit").classList.toggle("on", circuitOn);
+
+        document.getElementById("circuitStatus").textContent = circuitOn
+          ? "Circuit is ON — electricity is flowing!"
+          : "Circuit is currently OFF.";
+
+        if (circuitOn) {
+          state.xp += 5;
+
+          updateProgress();
+
+          checkAchievements();
+        }
+      }
+
+      function resetCircuit() {
+        circuitOn = false;
+
+        document.getElementById("circuit").classList.remove("on");
+
+        document.getElementById("circuitStatus").textContent =
+          "Circuit is currently OFF.";
+      }
+
+      /* =========================================================
+   BIOLOGY
+   ========================================================= */
+
+      function cellPart(part) {
+        const information = {
+          Nucleus:
+            "The nucleus contains genetic material and helps control the cell.",
+
+          Mitochondria:
+            "Mitochondria produce energy for many of the cell's activities.",
+
+          Ribosome: "Ribosomes help build proteins.",
+
+          Vacuole: "Vacuoles store substances inside cells.",
+        };
+
+        document.getElementById("cellInfo").innerHTML = `
+
+        <strong>${part}</strong>
+
+        <div class="text-secondary mt-1">
+
+            ${information[part]}
+
+        </div>
+
+    `;
+
+        state.xp += 3;
+
+        updateProgress();
+      }
+
+      /* =========================================================
+   TEMPERATURE
+   ========================================================= */
+
+      function updateTemperature(value) {
+        document.getElementById("temperatureValue").textContent = `${value}°C`;
+
+        document.getElementById("temperatureText").textContent = `${value}°C`;
+      }
+
+      /* =========================================================
+   DIGITAL BALANCE
+   ========================================================= */
+
+      let mass = 0;
+
+      function addMass(amount) {
+        if (amount === 0) {
+          mass = 0;
+        } else {
+          mass += amount;
+
+          mass = Math.max(0, mass);
+        }
+
+        document.getElementById("massValue").textContent = `${mass} g`;
+      }
+
+      /* =========================================================
+   TIMER
+   ========================================================= */
+
+      let timerSeconds = 0;
+
+      let timerInterval = null;
+
+      function renderTimer() {
+        const minutes = Math.floor(timerSeconds / 60)
+          .toString()
+          .padStart(2, "0");
+
+        const seconds = (timerSeconds % 60).toString().padStart(2, "0");
+
+        document.getElementById("timerValue").textContent =
+          `${minutes}:${seconds}`;
+      }
+
+      function startTimer() {
+        if (timerInterval) return;
+
+        timerInterval = setInterval(() => {
+          timerSeconds++;
+
+          renderTimer();
+        }, 1000);
+      }
+
+      function pauseTimer() {
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+      }
+
+      function resetTimer() {
+        pauseTimer();
+
+        timerSeconds = 0;
+
+        renderTimer();
+      }
+
+      /* =========================================================
+   JOURNAL
+   ========================================================= */
+
+      function saveJournal() {
+        const text = document.getElementById("journal").value;
+
+        localStorage.setItem("astrionJournal", text);
+
+        showToast("Journal saved!");
+      }
+
+      function loadJournal() {
+        const saved = localStorage.getItem("astrionJournal");
+
+        document.getElementById("journal").value = saved || "";
+
+        showToast(saved ? "Journal loaded!" : "No saved journal found.");
+      }
+
+      function clearJournal() {
+        document.getElementById("journal").value = "";
+      }
+
+      /* =========================================================
+   QUIZ
+   ========================================================= */
+
+      const questions = [
+        {
+          q: "Which planet is the largest?",
+          answers: ["Earth", "Jupiter", "Mars", "Venus"],
+          correct: 1,
+        },
+
+        {
+          q: "Which planet is known as the Red Planet?",
+          answers: ["Mars", "Mercury", "Neptune", "Saturn"],
+          correct: 0,
+        },
+
+        {
+          q: "Which planet has the most famous ring system?",
+          answers: ["Earth", "Saturn", "Mars", "Venus"],
+          correct: 1,
+        },
+
+        {
+          q: "What is Earth's natural satellite?",
+          answers: ["Europa", "Titan", "The Moon", "Ganymede"],
+          correct: 2,
+        },
+
+        {
+          q: "Which organelle is often called the powerhouse of the cell?",
+          answers: ["Nucleus", "Ribosome", "Mitochondria", "Vacuole"],
+          correct: 2,
+        },
+
+        {
+          q: "What happens when an electrical circuit is complete?",
+          answers: [
+            "Current can flow",
+            "Gravity stops",
+            "The battery disappears",
+            "The circuit becomes invisible",
+          ],
+          correct: 0,
+        },
+
+        {
+          q: "Which planet is closest to the Sun?",
+          answers: ["Earth", "Mercury", "Venus", "Mars"],
+          correct: 1,
+        },
+
+        {
+          q: "Which is the largest moon in the Solar System?",
+          answers: ["Titan", "Europa", "Ganymede", "Moon"],
+          correct: 2,
+        },
+
+        {
+          q: "Which planet is an ice giant?",
+          answers: ["Neptune", "Mars", "Mercury", "Earth"],
+          correct: 0,
+        },
+
+        {
+          q: "What does a thermometer measure?",
+          answers: ["Mass", "Temperature", "Distance", "Speed"],
+          correct: 1,
+        },
+      ];
+
+      let quizIndex = 0;
+
+      let quizScore = 0;
+
+      let quizAnswered = false;
+
+      function renderQuiz() {
+        const question = questions[quizIndex];
+
+        document.getElementById("questionNumber").textContent =
+          `Question ${quizIndex + 1} / ${questions.length}`;
+
+        document.getElementById("questionText").textContent = question.q;
+
+        document.getElementById("quizProgress").style.width =
+          `${((quizIndex + 1) / questions.length) * 100}%`;
+
+        const answers = document.getElementById("answers");
+
+        answers.innerHTML = "";
+
+        question.answers.forEach((answer, index) => {
+          const button = document.createElement("button");
+
+          button.className = "answer-btn";
+
+          button.textContent = answer;
+
+          button.onclick = () => answerQuestion(index, button);
+
+          answers.appendChild(button);
+        });
+
+        document.getElementById("quizFeedback").textContent = "";
+
+        document.getElementById("nextQuestionBtn").classList.add("d-none");
+
+        quizAnswered = false;
+      }
+
+      function answerQuestion(selected, button) {
+        if (quizAnswered) return;
+
+        quizAnswered = true;
+
+        const question = questions[quizIndex];
+
+        const buttons = document.querySelectorAll(".answer-btn");
+
+        buttons.forEach((btn, index) => {
+          if (index === question.correct) {
+            btn.classList.add("correct");
+          }
+        });
+
+        if (selected === question.correct) {
+          quizScore++;
+
+          button.classList.add("correct");
+
+          document.getElementById("quizFeedback").innerHTML = `
+
+            <span style="color:var(--success)">
+                <i class="bi bi-check-circle"></i>
+                Correct!
+            </span>
+
+        `;
+
+          state.xp += 10;
+        } else {
+          button.classList.add("wrong");
+
+          document.getElementById("quizFeedback").innerHTML = `
+
+            <span style="color:var(--danger)">
+                <i class="bi bi-x-circle"></i>
+                Incorrect.
+            </span>
+
+        `;
+        }
+
+        document.getElementById("quizScore").textContent =
+          `Score: ${quizScore}`;
+
+        document.getElementById("nextQuestionBtn").classList.remove("d-none");
+
+        state.quizScore = Math.max(state.quizScore, quizScore);
+
+        updateProgress();
+      }
+
+      function nextQuestion() {
+        quizIndex++;
+
+        if (quizIndex >= questions.length) {
+          finishQuiz();
+
+          return;
+        }
+
+        renderQuiz();
+      }
+
+      function finishQuiz() {
+        document.getElementById("answers").innerHTML = "";
+
+        document.getElementById("questionText").classList.add("d-none");
+
+        document.getElementById("nextQuestionBtn").classList.add("d-none");
+
+        document.getElementById("quizFeedback").classList.add("d-none");
+
+        document.getElementById("quizResult").classList.remove("d-none");
+
+        document.getElementById("finalScore").textContent =
+          `${quizScore} / ${questions.length}`;
+
+        const percentage = Math.round((quizScore / questions.length) * 100);
+
+        document.getElementById("finalPercentage").textContent =
+          `${percentage}%`;
+
+        state.quizScore = Math.max(state.quizScore, quizScore);
+
+        if (quizScore >= 8) {
+          state.xp += 50;
+        } else if (quizScore >= 5) {
+          state.xp += 25;
+        }
+
+        updateProgress();
+
+        checkAchievements();
+      }
+
+      function restartQuiz() {
+        quizIndex = 0;
+
+        quizScore = 0;
+
+        document.getElementById("questionText").classList.remove("d-none");
+
+        document.getElementById("quizFeedback").classList.remove("d-none");
+
+        document.getElementById("quizResult").classList.add("d-none");
+
+        document.getElementById("quizScore").textContent = "Score: 0";
+
+        renderQuiz();
+      }
+
+      /* =========================================================
+   ACHIEVEMENTS
+   ========================================================= */
+
+      const achievementData = [
+        {
+          id: "launch",
+          icon: "🚀",
+          title: "First Launch",
+          description: "Explore your first planet.",
+        },
+
+        {
+          id: "science",
+          icon: "🧪",
+          title: "Science Mind",
+          description: "Earn 50 XP.",
+        },
+
+        {
+          id: "lab",
+          icon: "🔬",
+          title: "Lab Scientist",
+          description: "Perform a lab experiment.",
+        },
+
+        {
+          id: "space",
+          icon: "🌌",
+          title: "Space Explorer",
+          description: "Explore 3 planets.",
+        },
+
+        {
+          id: "quiz",
+          icon: "🏆",
+          title: "Science Master",
+          description: "Score at least 8/10.",
+        },
+
+        {
+          id: "xp",
+          icon: "🔥",
+          title: "On Fire",
+          description: "Earn 100 XP.",
+        },
+      ];
+
+      function renderAchievements() {
+        const container = document.getElementById("achievements");
+
+        container.innerHTML = "";
+
+        achievementData.forEach((achievement) => {
+          const unlocked = state.achievements.includes(achievement.id);
+
+          const col = document.createElement("div");
+
+          col.className = "col-sm-6 col-lg-4";
+
+          col.innerHTML = `
+
+                <div
+                    class="glass achievement ${unlocked ? "unlocked" : ""}">
+
+                    <div class="achievement-icon">
+                        ${achievement.icon}
+                    </div>
+
+                    <h5>
+                        ${achievement.title}
+                    </h5>
+
+                    <p class="text-secondary mb-0">
+                        ${achievement.description}
+                    </p>
+
+                </div>
+
+            `;
+
+          container.appendChild(col);
+        });
+      }
+
+      function checkAchievements() {
+        if (state.xp >= 50 && !state.achievements.includes("science")) {
+          state.achievements.push("science");
+        }
+
+        if (state.xp >= 100 && !state.achievements.includes("xp")) {
+          state.achievements.push("xp");
+        }
+
+        if (state.quizScore >= 8 && !state.achievements.includes("quiz")) {
+          state.achievements.push("quiz");
+        }
+
+        renderAchievements();
+
+        updateProgress();
+      }
+
+      /* =========================================================
+   STATE
+   ========================================================= */
+
+      let state = {
+        xp: 0,
+
+        quizScore: 0,
+
+        achievements: [],
+      };
+
+      function saveState() {
+        localStorage.setItem("astrionState", JSON.stringify(state));
+      }
+
+      function loadState() {
+        const saved = localStorage.getItem("astrionState");
+
+        if (!saved) return;
+
+        try {
+          state = JSON.parse(saved);
+        } catch {
+          state = {
+            xp: 0,
+            quizScore: 0,
+            achievements: [],
+          };
+        }
+      }
+
+      /* =========================================================
+   PROGRESS
+   ========================================================= */
+
+      function updateProgress() {
+        document.getElementById("xpValue").textContent = state.xp;
+
+        document.getElementById("scoreValue").textContent = state.quizScore;
+
+        document.getElementById("achievementValue").textContent =
+          state.achievements.length;
+
+        saveState();
+      }
+
+      /* =========================================================
+   RESET PROGRESS
+   ========================================================= */
+
+      function resetProgress() {
+        if (!confirm("Reset all ASTRION progress?")) {
+          return;
+        }
+
+        state = {
+          xp: 0,
+
+          quizScore: 0,
+
+          achievements: [],
+        };
+
+        localStorage.removeItem("astrionState");
+
+        updateProgress();
+
+        renderAchievements();
+
+        showToast("Progress reset.");
+      }
+
+      /* =========================================================
+   THEME
+   ========================================================= */
+
+      function toggleTheme() {
+        document.body.classList.toggle("light");
+
+        const theme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+
+        localStorage.setItem("astrionTheme", theme);
+      }
+
+      function loadTheme() {
+        const theme = localStorage.getItem("astrionTheme");
+
+        if (theme === "light") {
+          document.body.classList.add("light");
+        }
+      }
+
+      /* =========================================================
+   FULLSCREEN
+   ========================================================= */
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      /* =========================================================
+   TOAST
+   ========================================================= */
+
+      function showToast(message) {
+        document.getElementById("toastText").textContent = message;
+
+        const toast = new bootstrap.Toast(document.getElementById("toast"));
+
+        toast.show();
+      }
+
+      /* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadState();
+
+        loadTheme();
+
+        renderPlanetCards();
+
+        renderMoons();
+
+        renderAchievements();
+
+        renderQuiz();
+
+        updateProgress();
+
+        renderTimer();
+
+        loadJournal();
+      });
+    </script>
+  </body>
+</html>
